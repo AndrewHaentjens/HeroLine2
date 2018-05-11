@@ -19,6 +19,21 @@ class GameScene: SKScene {
     
     var warriorDamageLbl: SKLabelNode?
     var zombieDamageLbl: SKLabelNode?
+    
+    var isFighting = false {
+        didSet {
+            if isFighting {
+                
+                guard
+                    let warrior = warrior,
+                    let zombie = zombie else {
+                        return
+                }
+                
+                resolveFightBetween(zombie, and: warrior)
+            }
+        }
+    }
         
     override func sceneDidLoad() {
         
@@ -35,6 +50,42 @@ class GameScene: SKScene {
         
     }
     
+    private func resolveFightBetween(_ zombie: ZombieSpriteNode, and warrior: WarriorSpriteNode) {
+        
+        let minHealth: CGFloat = 0.0
+        
+        guard warrior.health > minHealth
+            && zombie.health > minHealth else {
+                if warrior.health <= minHealth {
+                    warrior.removeFromParent()
+                    return
+                }
+                
+                if zombie.health <= minHealth {
+                    zombie.removeFromParent()
+                    return
+                }
+                
+                return
+        }
+                
+        warrior.club(zombie)
+        zombieDamageLbl?.text = "\(zombie.health)"
+
+        zombieDamageLbl?.run(SKAction.fadeIn(withDuration: 0.2)) {
+            
+            zombie.claw(warrior)
+            self.warriorDamageLbl?.text = "\(warrior.health)"
+
+            self.warriorDamageLbl?.run(SKAction.fadeIn(withDuration: 0.2)) {
+                self.resolveFightBetween(zombie, and: warrior)
+                
+                
+            }
+        }
+ 
+    }
+    
 }
 
 extension GameScene: SKPhysicsContactDelegate {
@@ -43,8 +94,6 @@ extension GameScene: SKPhysicsContactDelegate {
         
         var firstBody: SKPhysicsBody
         var secondBody: SKPhysicsBody
-        
-        let minHealth: CGFloat = 0.0
         
         /**
          Assign the two physics bodies so that the one with the lower category is always stored in firstBody
@@ -64,31 +113,7 @@ extension GameScene: SKPhysicsContactDelegate {
         if firstBody.categoryBitMask == warrior?.physicsBody?.categoryBitMask &&
             secondBody.categoryBitMask == zombie?.physicsBody?.categoryBitMask {
             
-            guard
-                let warrior = warrior,
-                let zombie = zombie else {
-                    return
-            }
-            
-            while warrior.health > minHealth
-                && zombie.health > minHealth {
-                    
-                    warrior.club(zombie)
-                    zombieDamageLbl?.text = "\(zombie.health)"
-                    
-                    zombie.claw(warrior)
-                    warriorDamageLbl?.text = "\(warrior.health)"
-                                        
-            }
-            
-            if warrior.health <= minHealth {
-                warrior.isHidden = true
-            }
-            
-            if zombie.health <= minHealth {
-                zombie.isHidden = true
-            }
-            
+            isFighting = true
         }
         
     }
