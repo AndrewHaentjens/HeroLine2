@@ -21,6 +21,11 @@ class WarriorSpriteNode: SKSpriteNode {
 
     func runToward(_ target: SKSpriteNode?) {
         
+        /**
+         Stop the bodies from bouncing
+         */
+        physicsBody?.restitution = 0.0
+        
         guard let target = target else {
             return
         }

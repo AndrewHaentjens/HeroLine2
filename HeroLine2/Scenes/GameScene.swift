@@ -51,11 +51,11 @@ class GameScene: SKScene {
     }
     
     private func resolveFightBetween(_ zombie: ZombieSpriteNode, and warrior: WarriorSpriteNode) {
-        
         let minHealth: CGFloat = 0.0
         
         guard warrior.health > minHealth
             && zombie.health > minHealth else {
+                
                 if warrior.health <= minHealth {
                     warrior.removeFromParent()
                     return
@@ -70,8 +70,8 @@ class GameScene: SKScene {
         }
                 
         warrior.club(zombie)
+        
         zombieDamageLbl?.text = "\(zombie.health)"
-
         zombieDamageLbl?.run(SKAction.fadeIn(withDuration: 0.2)) {
             
             zombie.claw(warrior)
@@ -79,11 +79,9 @@ class GameScene: SKScene {
 
             self.warriorDamageLbl?.run(SKAction.fadeIn(withDuration: 0.2)) {
                 self.resolveFightBetween(zombie, and: warrior)
-                
-                
+
             }
         }
- 
     }
     
 }
