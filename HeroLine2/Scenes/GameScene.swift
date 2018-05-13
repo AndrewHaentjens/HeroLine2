@@ -14,11 +14,9 @@ private var zombieName = "zombie"
 
 class GameScene: SKScene {
     
+    // TODO: rewrite as protocol!
     var warrior: WarriorSpriteNode?
     var zombie: ZombieSpriteNode?
-    
-    var warriorDamageLbl: SKLabelNode?
-    var zombieDamageLbl: SKLabelNode?
     
     var isFighting = false {
         didSet {
@@ -40,10 +38,10 @@ class GameScene: SKScene {
         physicsWorld.contactDelegate = self
         
         warrior = self.childNode(withName: "warrior") as? WarriorSpriteNode
-        zombie = self.childNode(withName: "zombie") as? ZombieSpriteNode
+        warrior?.setup()
         
-        warriorDamageLbl = warrior?.childNode(withName: "warriorDamage") as? SKLabelNode
-        zombieDamageLbl = zombie?.childNode(withName: "zombieDamage") as? SKLabelNode
+        zombie = self.childNode(withName: "zombie") as? ZombieSpriteNode
+        zombie?.setup()
         
         warrior?.runToward(zombie)
         zombie?.runToward(warrior)
@@ -70,17 +68,9 @@ class GameScene: SKScene {
         }
                 
         warrior.club(zombie)
-        
-        zombieDamageLbl?.text = "\(zombie.health)"
-        zombieDamageLbl?.run(SKAction.fadeIn(withDuration: 0.1))
             
         zombie.claw(warrior, completion: {
-            self.warriorDamageLbl?.text = "\(warrior.health)"
-            
-            self.warriorDamageLbl?.run(SKAction.fadeIn(withDuration: 0.1)) {
-                self.resolveFightBetween(zombie, and: warrior)
-                
-            }
+            self.resolveFightBetween(zombie, and: warrior)
         })
     }
     
@@ -111,11 +101,9 @@ extension GameScene: SKPhysicsContactDelegate {
         if firstBody.categoryBitMask == warrior?.physicsBody?.categoryBitMask &&
             secondBody.categoryBitMask == zombie?.physicsBody?.categoryBitMask {
             
-            warrior?.run(SKAction.stop())
-            warrior?.removeAllActions()
-            
-            zombie?.run(SKAction.stop())
-            zombie?.removeAllActions()
+            // make sure they stay put while fighting
+            firstBody.pinned = true
+            secondBody.pinned = true
             
             isFighting = true
         }

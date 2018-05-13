@@ -14,11 +14,37 @@ import SpriteKit
 
 class WarriorSpriteNode: SKSpriteNode {
     
+    private let fullHealth: CGFloat = 100.0
+    private let healthBarWidth: CGFloat = 100.0
+    private let healthBarHeight: CGFloat = 10.0
+    
     var runSpeed: CGFloat = 300.0
     var health: CGFloat = 100.0
     var damage: CGFloat = 5.0
     var defense: CGFloat = 0.2
+    
+    var healthBar: SKSpriteNode?
 
+    // MARK: - init function
+    
+    public func setup() {
+        healthBar = childNode(withName: "WarriorHealthBar") as? SKSpriteNode
+    }
+
+    // MARK: - Health bar
+    
+    public func updateHealthBar() {
+        
+        guard health > 0 else {
+            return
+        }
+        
+        let ratio = health / fullHealth
+        let newWidth: CGFloat = healthBarWidth * ratio
+        
+        healthBar?.run(SKAction.resize(toWidth: newWidth, duration: 0.1))
+    }
+    
     func runToward(_ target: SKSpriteNode?) {
         
         /**
@@ -52,6 +78,7 @@ class WarriorSpriteNode: SKSpriteNode {
         }
         
         zombie.health = zombie.health - (damage - (damage * zombie.defense))
+        zombie.updateHealthBar()
     }
     
 }

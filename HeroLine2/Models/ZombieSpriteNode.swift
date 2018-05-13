@@ -9,13 +9,45 @@
 import SpriteKit
 
 class ZombieSpriteNode: SKSpriteNode {
+    
+    /**
+     Possible refactor of  how the health reduction is handled
+     Maybe pass the new health to the setHealthBar function instead of add fullHealth var?
+     */
 
+    private let fullHealth: CGFloat = 75.0
+    private let healthBarWidth: CGFloat = 100.0
+    private let healthBarHeight: CGFloat = 10.0
+    
     var runSpeed: CGFloat = 150.0
     var health: CGFloat = 75.0
     var damage: CGFloat = 7
     var defense: CGFloat = 0.0
+
+    var healthBar: SKSpriteNode?
     
-    func runToward(_ target: SKSpriteNode?) {
+    // MARK: - init function
+    public func setup() {
+        healthBar = childNode(withName: "ZombieHealthBar") as? SKSpriteNode
+    }
+    
+    // MARK: - Health bar
+    
+    public func updateHealthBar() {
+        
+        guard health > 0 else {
+            return
+        }
+        
+        let ratio = health / fullHealth
+        let newWidth: CGFloat = healthBarWidth * ratio
+        
+        healthBar?.run(SKAction.resize(toWidth: newWidth, duration: 0.1))
+    }
+    
+    // MARK: - Actions
+    
+    public func runToward(_ target: SKSpriteNode?) {
         
         /**
          Stop the bodies from bouncing
@@ -46,7 +78,7 @@ class ZombieSpriteNode: SKSpriteNode {
         
     }
     
-    func claw(_ warrior: WarriorSpriteNode?, completion: @escaping () -> Void) {
+    public func claw(_ warrior: WarriorSpriteNode?, completion: @escaping () -> Void) {
         
         guard let warrior = warrior else {
             return
@@ -57,10 +89,13 @@ class ZombieSpriteNode: SKSpriteNode {
         
         run(clawAction) {
             warrior.health = warrior.health - (self.damage - (self.damage * warrior.defense))
+            warrior.updateHealthBar()
             completion()
         }
 
     }
+    
+    // MARK: - Private helper functions
     
     private func createZombieWalkAnimation() -> [SKTexture] {
         
