@@ -59,7 +59,7 @@ class ZombieSpriteNode: SKSpriteNode {
         }
         
         let walkAnimation = createZombieWalkAnimation()
-        let walkAction = SKAction.animate(with: walkAnimation, timePerFrame: 0.1, resize: false, restore: true)
+        let walkAction = SKAction.animate(with: walkAnimation, timePerFrame: 0.1, resize: false, restore: false)
         
         run(SKAction.repeatForever(walkAction))
         
@@ -99,7 +99,7 @@ class ZombieSpriteNode: SKSpriteNode {
     
     private func createZombieWalkAnimation() -> [SKTexture] {
         
-        let zombieAnimatedAtlas = SKTextureAtlas(named: "Move")
+        let zombieAnimatedAtlas = SKTextureAtlas(named: "zombieMove")
         var walkFrames: [SKTexture] = []
         
         let numImages = zombieAnimatedAtlas.textureNames.count
@@ -113,7 +113,7 @@ class ZombieSpriteNode: SKSpriteNode {
     
     private func createZombieAttackAnimation() -> [SKTexture] {
         
-        let zombieAnimatedAtlas = SKTextureAtlas(named: "Attack")
+        let zombieAnimatedAtlas = SKTextureAtlas(named: "zombieAttack")
         var attackFrames: [SKTexture] = []
         
         let numImages = zombieAnimatedAtlas.textureNames.count

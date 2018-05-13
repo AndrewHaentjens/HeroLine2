@@ -56,6 +56,11 @@ class WarriorSpriteNode: SKSpriteNode {
             return
         }
         
+        let walkAnimation = createWarriorWalkAnimation()
+        let walkAction = SKAction.animate(with: walkAnimation, timePerFrame: 0.1, resize: false, restore: false)
+        
+        run(SKAction.repeatForever(walkAction))
+        
         let targetPosition = target.position
         
         let angle = atan2(position.y - targetPosition.y, position.x - targetPosition.x) + CGFloat(Double.pi)
@@ -71,14 +76,50 @@ class WarriorSpriteNode: SKSpriteNode {
         
     }
     
-    func club(_ zombie: ZombieSpriteNode?) {
+    func knife(_ zombie: ZombieSpriteNode?, completion: @escaping () -> Void) {
         
         guard let zombie = zombie else {
             return
         }
         
-        zombie.health = zombie.health - (damage - (damage * zombie.defense))
-        zombie.updateHealthBar()
+        let knifeAnimation = createWarriorAttackAnimation()
+        let knifeAction = SKAction.animate(with: knifeAnimation, timePerFrame: 0.1, resize: false, restore: false)
+        
+        run(knifeAction) {
+            zombie.health = zombie.health - (self.damage - (self.damage * zombie.defense))
+            zombie.updateHealthBar()
+            completion()
+        }
+
     }
     
+    // MARK: - Private helper functions
+    
+    private func createWarriorWalkAnimation() -> [SKTexture] {
+        
+        let warriorAnimatedAtlas = SKTextureAtlas(named: "warriorMove")
+        var walkFrames: [SKTexture] = []
+        
+        let numImages = warriorAnimatedAtlas.textureNames.count
+        for i in 1..<numImages {
+            let warriorTextureName = "survivor-move_knife_\(i)"
+            walkFrames.append(warriorAnimatedAtlas.textureNamed(warriorTextureName))
+        }
+        
+        return walkFrames
+    }
+    
+    private func createWarriorAttackAnimation() -> [SKTexture] {
+        
+        let warriorAnimatedAtlas = SKTextureAtlas(named: "warriorAttack")
+        var attackFrames: [SKTexture] = []
+        
+        let numImages = warriorAnimatedAtlas.textureNames.count
+        for i in 1..<numImages {
+            let warriorTextureName = "survivor-meleeattack_knife_\(i)"
+            attackFrames.append(warriorAnimatedAtlas.textureNamed(warriorTextureName))
+        }
+        
+        return attackFrames
+    }
 }

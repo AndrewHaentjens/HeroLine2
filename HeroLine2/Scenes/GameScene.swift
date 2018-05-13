@@ -67,11 +67,12 @@ class GameScene: SKScene {
                 return
         }
                 
-        warrior.club(zombie)
-            
-        zombie.claw(warrior, completion: {
-            self.resolveFightBetween(zombie, and: warrior)
+        warrior.knife(zombie, completion: {
+            zombie.claw(warrior, completion: {
+                self.resolveFightBetween(zombie, and: warrior)
+            })
         })
+
     }
     
 }
