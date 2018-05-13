@@ -72,16 +72,16 @@ class GameScene: SKScene {
         warrior.club(zombie)
         
         zombieDamageLbl?.text = "\(zombie.health)"
-        zombieDamageLbl?.run(SKAction.fadeIn(withDuration: 0.2)) {
+        zombieDamageLbl?.run(SKAction.fadeIn(withDuration: 0.1))
             
-            zombie.claw(warrior)
+        zombie.claw(warrior, completion: {
             self.warriorDamageLbl?.text = "\(warrior.health)"
-
-            self.warriorDamageLbl?.run(SKAction.fadeIn(withDuration: 0.2)) {
+            
+            self.warriorDamageLbl?.run(SKAction.fadeIn(withDuration: 0.1)) {
                 self.resolveFightBetween(zombie, and: warrior)
-
+                
             }
-        }
+        })
     }
     
 }
@@ -110,6 +110,12 @@ extension GameScene: SKPhysicsContactDelegate {
          */
         if firstBody.categoryBitMask == warrior?.physicsBody?.categoryBitMask &&
             secondBody.categoryBitMask == zombie?.physicsBody?.categoryBitMask {
+            
+            warrior?.run(SKAction.stop())
+            warrior?.removeAllActions()
+            
+            zombie?.run(SKAction.stop())
+            zombie?.removeAllActions()
             
             isFighting = true
         }

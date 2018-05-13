@@ -26,6 +26,11 @@ class ZombieSpriteNode: SKSpriteNode {
             return
         }
         
+        let walkAnimation = createZombieWalkAnimation()
+        let walkAction = SKAction.animate(with: walkAnimation, timePerFrame: 0.1, resize: false, restore: true)
+        
+        run(SKAction.repeatForever(walkAction))
+        
         let targetPosition = target.position
         
         let angle = atan2(position.y - targetPosition.y, position.x - targetPosition.x) + CGFloat(Double.pi)
@@ -41,12 +46,47 @@ class ZombieSpriteNode: SKSpriteNode {
         
     }
     
-    func claw(_ warrior: WarriorSpriteNode?) {
+    func claw(_ warrior: WarriorSpriteNode?, completion: @escaping () -> Void) {
         
         guard let warrior = warrior else {
             return
         }
         
-        warrior.health = warrior.health - (damage - (damage * warrior.defense))
+        let clawAnimation = createZombieAttackAnimation()
+        let clawAction = SKAction.animate(with: clawAnimation, timePerFrame: 0.1, resize: false, restore: false)
+        
+        run(clawAction) {
+            warrior.health = warrior.health - (self.damage - (self.damage * warrior.defense))
+            completion()
+        }
+
+    }
+    
+    private func createZombieWalkAnimation() -> [SKTexture] {
+        
+        let zombieAnimatedAtlas = SKTextureAtlas(named: "Move")
+        var walkFrames: [SKTexture] = []
+        
+        let numImages = zombieAnimatedAtlas.textureNames.count
+        for i in 1..<numImages {
+            let zombieTextureName = "skeleton-move_\(i)"
+            walkFrames.append(zombieAnimatedAtlas.textureNamed(zombieTextureName))
+        }
+        
+        return walkFrames
+    }
+    
+    private func createZombieAttackAnimation() -> [SKTexture] {
+        
+        let zombieAnimatedAtlas = SKTextureAtlas(named: "Attack")
+        var attackFrames: [SKTexture] = []
+        
+        let numImages = zombieAnimatedAtlas.textureNames.count
+        for i in 1..<numImages {
+            let zombieTextureName = "skeleton-attack_\(i)"
+            attackFrames.append(zombieAnimatedAtlas.textureNamed(zombieTextureName))
+        }
+        
+        return attackFrames
     }
 }
