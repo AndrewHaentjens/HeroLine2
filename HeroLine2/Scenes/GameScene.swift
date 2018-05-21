@@ -12,11 +12,17 @@ import GameplayKit
 private var warriorName = "warrior"
 private var zombieName = "zombie"
 
+private var topCastleName = "topCastle"
+private var bottomCastleName = "bottomCastle"
+
 class GameScene: SKScene {
     
     // TODO: rewrite as protocol!
-    var warrior: WarriorSpriteNode?
-    var zombie: ZombieSpriteNode?
+    var warrior: WarriorSpriteNode!
+    var zombie: ZombieSpriteNode!
+    
+    var topCastle: CastleSpriteNode!
+    var bottomCastle: CastleSpriteNode!
     
     var isFighting = false {
         didSet {
@@ -37,15 +43,36 @@ class GameScene: SKScene {
         
         physicsWorld.contactDelegate = self
         
-        warrior = self.childNode(withName: "warrior") as? WarriorSpriteNode
-        warrior?.setup()
+        topCastle = self.childNode(withName: topCastleName) as? CastleSpriteNode
+        bottomCastle = self.childNode(withName: bottomCastleName) as? CastleSpriteNode
         
-        zombie = self.childNode(withName: "zombie") as? ZombieSpriteNode
-        zombie?.setup()
+        warrior = self.childNode(withName: warriorName) as? WarriorSpriteNode
+        warrior.setup()
         
-        warrior?.runToward(zombie)
-        zombie?.runToward(warrior)
+        zombie = self.childNode(withName: zombieName) as? ZombieSpriteNode
+        zombie.setup()
         
+        warrior.runToward(bottomCastle)
+        zombie.runToward(topCastle)
+        
+        if warrior.hasEnemyVisibleInSight() {
+            warrior.runToward(zombie)
+        }
+        
+        if zombie.hasEnemyVisibleInSight() {
+            zombie.runToward(warrior)
+        }
+        
+    }
+    
+    override func update(_ currentTime: TimeInterval) {
+        if zombie.hasEnemyVisibleInSight() {
+            zombie.runToward(warrior)
+        }
+        
+        if warrior.hasEnemyVisibleInSight() {
+            warrior.runToward(zombie)
+        }
     }
     
     private func resolveFightBetween(_ zombie: ZombieSpriteNode, and warrior: WarriorSpriteNode) {
@@ -95,12 +122,14 @@ extension GameScene: SKPhysicsContactDelegate {
             firstBody = contact.bodyB
             secondBody = contact.bodyA
         }
-        
+
         /**
          Fight!
          */
-        if firstBody.categoryBitMask == warrior?.physicsBody?.categoryBitMask &&
-            secondBody.categoryBitMask == zombie?.physicsBody?.categoryBitMask {
+        if (firstBody.categoryBitMask == warrior?.physicsBody?.categoryBitMask &&
+            secondBody.categoryBitMask == zombie?.physicsBody?.categoryBitMask) ||
+            (firstBody.categoryBitMask == zombie?.physicsBody?.categoryBitMask &&
+            secondBody.categoryBitMask == warrior.physicsBody?.categoryBitMask) {
             
             // make sure they stay put while fighting
             firstBody.pinned = true

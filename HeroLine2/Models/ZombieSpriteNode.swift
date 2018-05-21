@@ -29,6 +29,7 @@ class ZombieSpriteNode: SKSpriteNode {
     // MARK: - init function
     public func setup() {
         healthBar = childNode(withName: "ZombieHealthBar") as? SKSpriteNode
+        addFieldOfView()
     }
     
     // MARK: - Health bar
@@ -46,6 +47,25 @@ class ZombieSpriteNode: SKSpriteNode {
     }
     
     // MARK: - Actions
+    
+    func hasEnemyVisibleInSight() -> Bool {
+        
+        let enemyCategory: UInt32 = 1
+        let rayStart = self.position
+        
+        /**
+         At the moment angle and disantce are hardcoded.
+         Formula is:
+         x = distance * cos(angle)
+         y = distance * sin(angle)
+         */
+        let rayEnd = CGPoint(x: 100.0 * cos(90.0),
+                             y: 100.0 * sin(90.0))
+        
+        let body = scene?.physicsWorld.body(alongRayStart: rayStart, end: rayEnd)
+        
+        return body?.categoryBitMask == enemyCategory
+    }
     
     public func runToward(_ target: SKSpriteNode?) {
         

@@ -26,9 +26,10 @@ class WarriorSpriteNode: SKSpriteNode {
     var healthBar: SKSpriteNode?
 
     // MARK: - init function
-    
     public func setup() {
         healthBar = childNode(withName: "WarriorHealthBar") as? SKSpriteNode
+        
+        addFieldOfView()
     }
 
     // MARK: - Health bar
@@ -43,6 +44,18 @@ class WarriorSpriteNode: SKSpriteNode {
         let newWidth: CGFloat = healthBarWidth * ratio
         
         healthBar?.run(SKAction.resize(toWidth: newWidth, duration: 0.1))
+    }
+    
+    // MARK: - Actions
+    
+    func hasEnemyVisibleInSight() -> Bool {
+        
+        guard let fieldOfView = self.childNode(withName: "fieldOfView") else { return false }
+        
+        let enemyCategory: UInt32 = 2
+        let body = scene?.physicsWorld.body(in: fieldOfView.frame)
+        
+        return body?.categoryBitMask == enemyCategory
     }
     
     func runToward(_ target: SKSpriteNode?) {

@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3B221E9C20B07717005B4E6D /* GrassTileSet.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3B221E9B20B07717005B4E6D /* GrassTileSet.sks */; };
+		3B221E9E20B07C61005B4E6D /* CastleSpriteNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B221E9D20B07C61005B4E6D /* CastleSpriteNode.swift */; };
+		3B221EA120B2CE25005B4E6D /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B221EA020B2CE25005B4E6D /* Extensions.swift */; };
 		3B7CFC3520A4354C003B969B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7CFC3420A4354C003B969B /* AppDelegate.swift */; };
 		3B7CFC3720A4354C003B969B /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3B7CFC3620A4354C003B969B /* GameScene.sks */; };
 		3B7CFC3B20A4354C003B969B /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7CFC3A20A4354C003B969B /* GameScene.swift */; };
@@ -19,6 +22,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3B221E9B20B07717005B4E6D /* GrassTileSet.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GrassTileSet.sks; sourceTree = "<group>"; };
+		3B221E9D20B07C61005B4E6D /* CastleSpriteNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CastleSpriteNode.swift; sourceTree = "<group>"; };
+		3B221EA020B2CE25005B4E6D /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		3B7CFC3120A4354C003B969B /* HeroLine2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HeroLine2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B7CFC3420A4354C003B969B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3B7CFC3620A4354C003B969B /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -43,6 +49,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3B221E9F20B2CDDD005B4E6D /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				3B221EA020B2CE25005B4E6D /* Extensions.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		3B7CFC2820A4354B003B969B = {
 			isa = PBXGroup;
 			children = (
@@ -64,7 +78,9 @@
 			children = (
 				3B7CFC3420A4354C003B969B /* AppDelegate.swift */,
 				3B7CFC4120A4354F003B969B /* Assets.xcassets */,
+				3B221E9B20B07717005B4E6D /* GrassTileSet.sks */,
 				3B7CFC4620A4354F003B969B /* Info.plist */,
+				3B221E9F20B2CDDD005B4E6D /* Extensions */,
 				3B7CFC4C20A43704003B969B /* Scenes */,
 				3B7CFC5120A4426E003B969B /* Models */,
 				3B7CFC4E20A44134003B969B /* Views */,
@@ -104,6 +120,7 @@
 			children = (
 				3B7CFC4F20A44244003B969B /* WarriorSpriteNode.swift */,
 				3B7CFC5220A444B5003B969B /* ZombieSpriteNode.swift */,
+				3B221E9D20B07C61005B4E6D /* CastleSpriteNode.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -166,6 +183,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3B221E9C20B07717005B4E6D /* GrassTileSet.sks in Resources */,
 				3B7CFC4020A4354C003B969B /* Main.storyboard in Resources */,
 				3B7CFC3720A4354C003B969B /* GameScene.sks in Resources */,
 				3B7CFC4220A4354F003B969B /* Assets.xcassets in Resources */,
@@ -184,7 +202,9 @@
 				3B7CFC3B20A4354C003B969B /* GameScene.swift in Sources */,
 				3B7CFC5020A44244003B969B /* WarriorSpriteNode.swift in Sources */,
 				3B7CFC3D20A4354C003B969B /* GameViewController.swift in Sources */,
+				3B221E9E20B07C61005B4E6D /* CastleSpriteNode.swift in Sources */,
 				3B7CFC3520A4354C003B969B /* AppDelegate.swift in Sources */,
+				3B221EA120B2CE25005B4E6D /* Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
