@@ -10,6 +10,10 @@
 		3B221E9C20B07717005B4E6D /* GrassTileSet.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3B221E9B20B07717005B4E6D /* GrassTileSet.sks */; };
 		3B221E9E20B07C61005B4E6D /* CastleSpriteNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B221E9D20B07C61005B4E6D /* CastleSpriteNode.swift */; };
 		3B221EA120B2CE25005B4E6D /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B221EA020B2CE25005B4E6D /* Extensions.swift */; };
+		3B602BB820C13F8E0053C9FE /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B602BB720C13F8E0053C9FE /* Protocols.swift */; };
+		3B602BBA20C148BD0053C9FE /* Warrior.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B602BB920C148BD0053C9FE /* Warrior.swift */; };
+		3B602BBC20C435050053C9FE /* Zombie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B602BBB20C435050053C9FE /* Zombie.swift */; };
+		3B602BC020C4460C0053C9FE /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B602BBF20C4460C0053C9FE /* Enums.swift */; };
 		3B7CFC3520A4354C003B969B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7CFC3420A4354C003B969B /* AppDelegate.swift */; };
 		3B7CFC3720A4354C003B969B /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3B7CFC3620A4354C003B969B /* GameScene.sks */; };
 		3B7CFC3B20A4354C003B969B /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7CFC3A20A4354C003B969B /* GameScene.swift */; };
@@ -17,14 +21,16 @@
 		3B7CFC4020A4354C003B969B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3B7CFC3E20A4354C003B969B /* Main.storyboard */; };
 		3B7CFC4220A4354F003B969B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3B7CFC4120A4354F003B969B /* Assets.xcassets */; };
 		3B7CFC4520A4354F003B969B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3B7CFC4320A4354F003B969B /* LaunchScreen.storyboard */; };
-		3B7CFC5020A44244003B969B /* WarriorSpriteNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7CFC4F20A44244003B969B /* WarriorSpriteNode.swift */; };
-		3B7CFC5320A444B5003B969B /* ZombieSpriteNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7CFC5220A444B5003B969B /* ZombieSpriteNode.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		3B221E9B20B07717005B4E6D /* GrassTileSet.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GrassTileSet.sks; sourceTree = "<group>"; };
 		3B221E9D20B07C61005B4E6D /* CastleSpriteNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CastleSpriteNode.swift; sourceTree = "<group>"; };
 		3B221EA020B2CE25005B4E6D /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		3B602BB720C13F8E0053C9FE /* Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
+		3B602BB920C148BD0053C9FE /* Warrior.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Warrior.swift; sourceTree = "<group>"; };
+		3B602BBB20C435050053C9FE /* Zombie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Zombie.swift; sourceTree = "<group>"; };
+		3B602BBF20C4460C0053C9FE /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
 		3B7CFC3120A4354C003B969B /* HeroLine2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HeroLine2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B7CFC3420A4354C003B969B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3B7CFC3620A4354C003B969B /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -34,8 +40,6 @@
 		3B7CFC4120A4354F003B969B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3B7CFC4420A4354F003B969B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3B7CFC4620A4354F003B969B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		3B7CFC4F20A44244003B969B /* WarriorSpriteNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarriorSpriteNode.swift; sourceTree = "<group>"; };
-		3B7CFC5220A444B5003B969B /* ZombieSpriteNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZombieSpriteNode.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +61,32 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		3B602BB620C13F6F0053C9FE /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				3B602BB720C13F8E0053C9FE /* Protocols.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		3B602BBD20C445D90053C9FE /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				3B7CFC3420A4354C003B969B /* AppDelegate.swift */,
+				3B7CFC4120A4354F003B969B /* Assets.xcassets */,
+				3B221E9B20B07717005B4E6D /* GrassTileSet.sks */,
+			);
+			path = Assets;
+			sourceTree = "<group>";
+		};
+		3B602BBE20C445F00053C9FE /* Enums */ = {
+			isa = PBXGroup;
+			children = (
+				3B602BBF20C4460C0053C9FE /* Enums.swift */,
+			);
+			path = Enums;
+			sourceTree = "<group>";
+		};
 		3B7CFC2820A4354B003B969B = {
 			isa = PBXGroup;
 			children = (
@@ -76,10 +106,10 @@
 		3B7CFC3320A4354C003B969B /* HeroLine2 */ = {
 			isa = PBXGroup;
 			children = (
-				3B7CFC3420A4354C003B969B /* AppDelegate.swift */,
-				3B7CFC4120A4354F003B969B /* Assets.xcassets */,
-				3B221E9B20B07717005B4E6D /* GrassTileSet.sks */,
 				3B7CFC4620A4354F003B969B /* Info.plist */,
+				3B602BBE20C445F00053C9FE /* Enums */,
+				3B602BB620C13F6F0053C9FE /* Protocols */,
+				3B602BBD20C445D90053C9FE /* Assets */,
 				3B221E9F20B2CDDD005B4E6D /* Extensions */,
 				3B7CFC4C20A43704003B969B /* Scenes */,
 				3B7CFC5120A4426E003B969B /* Models */,
@@ -118,9 +148,9 @@
 		3B7CFC5120A4426E003B969B /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				3B7CFC4F20A44244003B969B /* WarriorSpriteNode.swift */,
-				3B7CFC5220A444B5003B969B /* ZombieSpriteNode.swift */,
 				3B221E9D20B07C61005B4E6D /* CastleSpriteNode.swift */,
+				3B602BB920C148BD0053C9FE /* Warrior.swift */,
+				3B602BBB20C435050053C9FE /* Zombie.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -198,13 +228,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3B7CFC5320A444B5003B969B /* ZombieSpriteNode.swift in Sources */,
 				3B7CFC3B20A4354C003B969B /* GameScene.swift in Sources */,
-				3B7CFC5020A44244003B969B /* WarriorSpriteNode.swift in Sources */,
 				3B7CFC3D20A4354C003B969B /* GameViewController.swift in Sources */,
 				3B221E9E20B07C61005B4E6D /* CastleSpriteNode.swift in Sources */,
 				3B7CFC3520A4354C003B969B /* AppDelegate.swift in Sources */,
+				3B602BBA20C148BD0053C9FE /* Warrior.swift in Sources */,
 				3B221EA120B2CE25005B4E6D /* Extensions.swift in Sources */,
+				3B602BB820C13F8E0053C9FE /* Protocols.swift in Sources */,
+				3B602BC020C4460C0053C9FE /* Enums.swift in Sources */,
+				3B602BBC20C435050053C9FE /* Zombie.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

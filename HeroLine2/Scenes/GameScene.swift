@@ -17,9 +17,8 @@ private var bottomCastleName = "bottomCastle"
 
 class GameScene: SKScene {
     
-    // TODO: rewrite as protocol!
-    var warrior: WarriorSpriteNode!
-    var zombie: ZombieSpriteNode!
+    var warrior: Warrior!
+    var zombie: Zombie!
     
     var topCastle: CastleSpriteNode!
     var bottomCastle: CastleSpriteNode!
@@ -46,36 +45,37 @@ class GameScene: SKScene {
         topCastle = self.childNode(withName: topCastleName) as? CastleSpriteNode
         bottomCastle = self.childNode(withName: bottomCastleName) as? CastleSpriteNode
         
-        warrior = self.childNode(withName: warriorName) as? WarriorSpriteNode
+        warrior = self.childNode(withName: warriorName) as? Warrior
         warrior.setup()
         
-        zombie = self.childNode(withName: zombieName) as? ZombieSpriteNode
+        zombie = self.childNode(withName: zombieName) as? Zombie
         zombie.setup()
         
         warrior.runToward(bottomCastle)
         zombie.runToward(topCastle)
         
-        if warrior.hasEnemyVisibleInSight() {
+        if warrior.hasEnemyInSight() {
             warrior.runToward(zombie)
         }
         
-        if zombie.hasEnemyVisibleInSight() {
+        if zombie.hasEnemyInSight() {
             zombie.runToward(warrior)
         }
         
     }
     
     override func update(_ currentTime: TimeInterval) {
-        if zombie.hasEnemyVisibleInSight() {
+        if zombie.hasEnemyInSight() {
             zombie.runToward(warrior)
         }
         
-        if warrior.hasEnemyVisibleInSight() {
+        if warrior.hasEnemyInSight() {
             warrior.runToward(zombie)
         }
+        
     }
     
-    private func resolveFightBetween(_ zombie: ZombieSpriteNode, and warrior: WarriorSpriteNode) {
+    private func resolveFightBetween(_ zombie: Zombie, and warrior: Warrior) {
         let minHealth: CGFloat = 0.0
         
         guard warrior.health > minHealth
@@ -93,13 +93,16 @@ class GameScene: SKScene {
                 
                 return
         }
-                
+        
+        warrior.attack(zombie)
+        
+/** TODO: adjust
         warrior.knife(zombie, completion: {
             zombie.claw(warrior, completion: {
                 self.resolveFightBetween(zombie, and: warrior)
             })
         })
-
+*/
     }
     
 }
@@ -122,7 +125,18 @@ extension GameScene: SKPhysicsContactDelegate {
             firstBody = contact.bodyB
             secondBody = contact.bodyA
         }
-
+        
+        if let secondBodyCategoryBitMask = CollisionMaskName(rawValue: secondBody.categoryBitMask) {
+            
+            switch secondBodyCategoryBitMask {
+            case .fieldOfVision:
+                break
+            default:
+                break
+            }
+            
+        }
+        
         /**
          Fight!
          */

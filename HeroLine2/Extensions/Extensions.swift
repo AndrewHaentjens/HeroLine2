@@ -38,10 +38,9 @@ extension SKSpriteNode {
         
         let triangleShape = SKShapeNode(path: trianglePath)
         triangleShape.name = "fieldOfView"
-        //triangleShape.physicsBody = trianglePhysicsBody
         triangleShape.fillColor = .red
-        triangleShape.alpha = 0.4
-        triangleShape.physicsBody?.collisionBitMask = 3
+        triangleShape.alpha = 0.2
+        triangleShape.physicsBody?.collisionBitMask = CollisionMaskName.fieldOfVision.rawValue
         
         self.addChild(triangleShape)
     }

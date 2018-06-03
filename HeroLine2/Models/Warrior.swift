@@ -1,61 +1,51 @@
 //
-//  WarriorSpriteNode.swift
+//  Warrior.swift
 //  HeroLine2
 //
-//  Created by Andrew Haentjens on 10/05/2018.
+//  Created by Andrew Haentjens on 01/06/2018.
 //  Copyright © 2018 Andrew Haentjens. All rights reserved.
 //
 
 import SpriteKit
 
-/**
- Warrior Class
- */
-
-class WarriorSpriteNode: SKSpriteNode {
+class Warrior: SKSpriteNode {
     
-    private let fullHealth: CGFloat = 100.0
-    private let healthBarWidth: CGFloat = 100.0
-    private let healthBarHeight: CGFloat = 10.0
-    
-    var runSpeed: CGFloat = 300.0
-    var health: CGFloat = 100.0
-    var damage: CGFloat = 5.0
-    var defense: CGFloat = 0.2
-    
-    var healthBar: SKSpriteNode?
-
-    // MARK: - init function
     public func setup() {
-        healthBar = childNode(withName: "WarriorHealthBar") as? SKSpriteNode
-        
-        addFieldOfView()
+        self.addFieldOfView()
     }
+    
+}
 
-    // MARK: - Health bar
+extension Warrior: Horde {
     
-    public func updateHealthBar() {
-        
-        guard health > 0 else {
-            return
-        }
-        
-        let ratio = health / fullHealth
-        let newWidth: CGFloat = healthBarWidth * ratio
-        
-        healthBar?.run(SKAction.resize(toWidth: newWidth, duration: 0.1))
+    internal var runSpeed: CGFloat {
+        return 300.0
     }
     
-    // MARK: - Actions
+    internal var health: CGFloat {
+        return 100.0
+    }
     
-    func hasEnemyVisibleInSight() -> Bool {
+    internal var damage: CGFloat {
+        return 5.0
+    }
+    
+    internal var defense: CGFloat {
+        return 0.2
+    }
+    
+    internal var healthBar: SKSpriteNode? {
+        return childNode(withName: "WarriorHealthBar") as? SKSpriteNode
+    }
+    
+    func hasEnemyInSight() -> Bool {
         
         guard let fieldOfView = self.childNode(withName: "fieldOfView") else { return false }
         
-        let enemyCategory: UInt32 = 2
         let body = scene?.physicsWorld.body(in: fieldOfView.frame)
         
-        return body?.categoryBitMask == enemyCategory
+        return body?.categoryBitMask == CollisionMaskName.enemy.rawValue
+
     }
     
     func runToward(_ target: SKSpriteNode?) {
@@ -69,8 +59,8 @@ class WarriorSpriteNode: SKSpriteNode {
             return
         }
         
-        let walkAnimation = createWarriorWalkAnimation()
-        let walkAction = SKAction.animate(with: walkAnimation, timePerFrame: 0.1, resize: false, restore: false)
+        let walk = walkAnimation()
+        let walkAction = SKAction.animate(with: walk, timePerFrame: 0.1, resize: false, restore: false)
         
         run(SKAction.repeatForever(walkAction))
         
@@ -89,26 +79,17 @@ class WarriorSpriteNode: SKSpriteNode {
         
     }
     
-    func knife(_ zombie: ZombieSpriteNode?, completion: @escaping () -> Void) {
+    func attack(_ target: SKSpriteNode?) {
         
-        guard let zombie = zombie else {
-            return
-        }
-        
-        let knifeAnimation = createWarriorAttackAnimation()
-        let knifeAction = SKAction.animate(with: knifeAnimation, timePerFrame: 0.1, resize: false, restore: false)
+        let attack = attackAnimation()
+        let knifeAction = SKAction.animate(with: attack, timePerFrame: 0.1, resize: false, restore: false)
         
         run(knifeAction) {
-            zombie.health = zombie.health - (self.damage - (self.damage * zombie.defense))
-            zombie.updateHealthBar()
-            completion()
+            // TODO set healthbar of opponent
         }
-
     }
     
-    // MARK: - Private helper functions
-    
-    private func createWarriorWalkAnimation() -> [SKTexture] {
+    internal func walkAnimation() -> [SKTexture] {
         
         let warriorAnimatedAtlas = SKTextureAtlas(named: "warriorMove")
         var walkFrames: [SKTexture] = []
@@ -120,9 +101,10 @@ class WarriorSpriteNode: SKSpriteNode {
         }
         
         return walkFrames
+        
     }
     
-    private func createWarriorAttackAnimation() -> [SKTexture] {
+    internal func attackAnimation() -> [SKTexture] {
         
         let warriorAnimatedAtlas = SKTextureAtlas(named: "warriorAttack")
         var attackFrames: [SKTexture] = []
@@ -134,5 +116,7 @@ class WarriorSpriteNode: SKSpriteNode {
         }
         
         return attackFrames
+        
     }
+    
 }
